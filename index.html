@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Elipse</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="calculator-container">
+    <h3>Calculadora de Elipse</h3>
+    <p>Ingrese los semiejes <b>a</b> y <b>b</b></p>
+    <input type="number" id="semiejeA" placeholder="Semieje mayor (a)" min="0" required>
+    <input type="number" id="semiejeB" placeholder="Semieje menor (b)" min="0" required>
+    <button onclick="calcularElipse()">Calcular</button>
+
+    <div class="result" id="result">
+      <p>Área: -</p>
+      <p>Excentricidad: -</p>
+      <p>Distancia focal (c): -</p>
+      <p>Longitud del cordón (L): -</p>
+      <p>Posición de los clavos (focos): -</p>
+    </div>
+  </div>
+
+  <script>
+    function calcularElipse() {
+      const a = parseFloat(document.getElementById('semiejeA').value);
+      const b = parseFloat(document.getElementById('semiejeB').value);
+      const resultadoDiv = document.getElementById('result');
+
+      if (isNaN(a) || isNaN(b) || a <= 0 || b <= 0) {
+        resultadoDiv.innerHTML = "<p>Por favor, introduzca valores válidos.</p>";
+        return;
+      }
+
+      // Área de la elipse
+      const area = Math.PI * a * b;
+
+      // Excentricidad de la elipse
+      const excentricidad = Math.sqrt(1 - (b ** 2 / a ** 2));
+
+      // Distancia focal
+      const distanciaFocal = Math.sqrt(a ** 2 - b ** 2);
+
+      // Longitud del cordón
+      const longitudCordon = 2 * a;
+
+      // Mostrar resultados
+      resultadoDiv.innerHTML = `
+        <p>Área: ${area.toFixed(2)} unidades²</p>
+        <p>Excentricidad: ${excentricidad.toFixed(2)}</p>
+        <p>Distancia focal (c): ${distanciaFocal.toFixed(2)} unidades</p>
+        <p>Longitud del cordón (L): ${longitudCordon.toFixed(2)} unidades</p>
+        <p>Posición de los clavos (focos): Focos en (${distanciaFocal.toFixed(2)}, 0) y (${-distanciaFocal.toFixed(2)}, 0)</p>
+      `;
+    }
+  </script>
+</body>
+</html>
